@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+exec_name="program"
+
+test_input_file="test_input.txt"
+test_expected_output_file="test_expected_output.txt"
+test_output_file="test_output.txt"
+
+run_tests() {
+  touch $test_output_file
+  cat /dev/null >$test_output_file
+
+  while IFS= read -r line; do
+    temp_file=$(mktemp)
+    echo $line >$temp_file
+    ./$exec_name <$temp_file >>$test_output_file
+  done <"$test_input_file"
+}
+
+check_tests() {
+  tests_qty=$(wc -l <$test_output_file)
+  tests_expect_qty=$(wc -l <$test_expected_output_file)
+  if [ $tests_qty -eq $tests_expect_qty ]; then
+    echo ran $tests_qty tests
+
+    failed_tests_lines=$(diff $test_output_file $test_expected_output_file | grep -E "[0-9]*c" | sed "s/c[0-9]*//g")
+    echo "failed tests: "
+    echo $failed_tests_lines
+
+    failed_tests_result=$(diff $test_output_file $test_expected_output_file \
+      --old-line-format='found(%l) ' \
+      --new-line-format='expected(%l)
+' \
+      --unchanged-line-format='')
+
+    echo "problems: "
+    echo $failed_tests_result
+
+  else
+
+    echo ran $tests_qty tests, but was expecting $tests_expect_qty
+  fi
+
+}
+
+g++ -pipe -O2 -std=c++11 -o $exec_name $1
+run_tests
+check_tests
+rm $exec_name
