@@ -10,6 +10,19 @@ def compile(cpp_file, program_name):
     subprocess.run(["c++", "-o", program_name, cpp_file])
 
 
+def is_test_files_same_length(input_file, output_file):
+    input_lines = count_file_lines(input_file)
+    output_lines = count_file_lines(output_file)
+    return input_lines == output_lines
+
+
+def count_file_lines(file_name):
+    file = open(file_name, "r")
+    num_lines = sum(1 for line in file)
+    file.close()
+    return num_lines
+
+
 def run_test(program_name, test_input_file):
     input_file = open(test_input_file, "r")
     result = []
@@ -37,13 +50,6 @@ def check_test(test_result, expected_output_file):
     return failed_tests
 
 
-def count_file_lines(file_name):
-    file = open(file_name, "r")
-    num_lines = sum(1 for line in file)
-    file.close()
-    return num_lines
-
-
 def print_result(check_result):
     test_qty = len(check_result)
     print(test_qty, "test(s) failed")
@@ -51,12 +57,6 @@ def print_result(check_result):
     print("failed tests:")
     for test in check_result:
         print(test)
-
-
-def is_test_files_same_length(input_file, output_file):
-    input_lines = count_file_lines(input_file)
-    output_lines = count_file_lines(output_file)
-    return input_lines == output_lines
 
 
 def remove_program(program_name):
@@ -72,8 +72,8 @@ def main():
     check_lines = is_test_files_same_length(
         test_input_file, test_expected_output_file)
     if not check_lines:
-        print("Failed testing: "+test_input_file+" and " +
-              test_expected_output_file+" have different lengths.")
+        print("Failed testing: " + test_input_file + " and " +
+              test_expected_output_file + " have different lengths.")
         return
 
     compile(cpp_file, program_name)
