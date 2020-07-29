@@ -22,8 +22,8 @@ def run_test(program_name, test_input_file):
   return result
 
 
-def check_test(test_result, test_expected_output_file):
-  output_file = open(test_expected_output_file, "r")
+def check_test(test_result, expected_output_file):
+  output_file = open(expected_output_file, "r")
   failed_tests = []
 
   for index, line in enumerate(output_file, start=0):
@@ -35,6 +35,13 @@ def check_test(test_result, test_expected_output_file):
   return failed_tests
 
 
+def file_lines_count(file_name):
+  file = open(file_name, "r")
+  num_lines = sum(1 for line in file)
+  file.close()
+  return num_lines
+
+
 def print_result(check_result):
   test_qty = len(check_result)
   print(test_qty, "test(s) failed")
@@ -43,12 +50,27 @@ def print_result(check_result):
   for test in check_result:
     print(test)
 
-cpp_file = sys.argv[1]
-program_name = "program"
-test_input_file = "test_input.txt"
-test_expected_output_file = "test_expected_output.txt"
 
-compile(cpp_file, program_name)
-test_result = run_test(program_name, test_input_file)
-check_result = check_test(test_result, test_expected_output_file)
-print_result(check_result) 
+def is_test_files_same_length(input_file, output_file):
+  input_lines = file_lines_count(input_file)
+  output_lines = file_lines_count(output_file)
+  return input_lines == output_lines
+
+
+def main():
+  cpp_file = sys.argv[1]
+  program_name = "program"
+  test_input_file = "test_input.txt"
+  test_expected_output_file = "test_expected_output.txt"
+
+  check_lines = is_test_files_same_length(test_input_file, test_expected_output_file)
+  if not check_lines:
+    return
+
+  compile(cpp_file, program_name)
+
+  test_result = run_test(program_name, test_input_file)
+  check_result = check_test(test_result, test_expected_output_file)
+  print_result(check_result) 
+
+main()
