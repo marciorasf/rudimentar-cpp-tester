@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 mkdir $1
 touch $1/$1.cpp $1/test_input.txt $1/test_expected_output.txt
