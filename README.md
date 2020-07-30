@@ -4,7 +4,6 @@
 This is a shell script to compile and run tests of cpp programs.
 I use them when I'm solving data algorithms problems like the ones from https://www.dailycodingproblem.com/ or https://www.urionlinejudge.com.br/, for example.
 The scripts written in python have a nicer approach and displays the result more clearly.
-I highly recommend that you delete the scripts that you won't use, because the terminal auto-completion will work better
 
 ## Setup
 To use these scripts on the terminal from anywhere, the folder that contains them should be on the PATH.
