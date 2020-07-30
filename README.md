@@ -6,7 +6,9 @@ I use them when I'm solving data algorithms problems like the ones from https://
 
 The scripts written in python have a nicer approach and displays the result more clearly. So i recommend to use them and delete the shell ones.
 
-Currently I'm using ZShell, so maybe some adjusts have are necessary for diferent shells.
+```diff
+! Currently I'm using ZShell, so maybe some adjusts have are necessary for diferent shells.
+```
 
 ## Setup
 To use these scripts on the terminal from anywhere, the folder that contains them should be on the PATH.
