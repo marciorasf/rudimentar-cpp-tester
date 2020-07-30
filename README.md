@@ -6,9 +6,7 @@ I use them when I'm solving data algorithms problems like the ones from https://
 
 The scripts written in python have a nicer approach and displays the result more clearly. So i recommend to use them and delete the shell ones.
 
-```diff
-! Currently I'm using ZShell, so maybe some adjusts have are necessary for diferent shells.
-```
+:warning: Currently I'm using ZShell, so maybe some adjusts have are necessary for diferent shells.
 
 ## Setup
 To use these scripts on the terminal from anywhere, the folder that contains them should be on the PATH.
@@ -18,7 +16,7 @@ The following instructions are based on my personal preference:
 1. Clone this repository on /bin. The files should be on /bin/rudimentar-cpp-tester
 1. If you want to run the Python scripts, make sure you have python 3 installed. Run `python3 -V`, it should display the version, if it is installed
 1. Add the folder to the  PATH
-   1. Open **/.profile** file
+   1. Open **.profile** file
    1. At the bottom, add `export PATH=$PATH:/home/user/bin/rudimentar-cpp-tester` (remember to replace **user** with your user)
    1. Now, every time your SO start, it will add the folder to the PATH
 
